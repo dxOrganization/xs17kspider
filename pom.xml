@@ -23,7 +23,43 @@
 		<junit.version>4.11</junit.version>
 		<source.encoding>UTF-8</source.encoding>
 	</properties>
+
+	<profiles>
+		<profile>
+			<!-- 本地开发环境 -->
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<!-- 测试环境 -->
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<!-- 生产环境 -->
+			<id>prd</id>
+			<properties>
+				<profiles.active>prd</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>local/*</exclude>
+					<exclude>prd/*</exclude>
+					<exclude>dev/*</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<!-- 指定JDK的编译版本 -->
 			<plugin>

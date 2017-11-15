@@ -125,6 +125,12 @@ public class NovelServiceImpl extends BaseService implements INovelService {
                    + "intro ,fullflag ,postdate,dayvisit, weekvisit, monthvisit,  "
                    + "allvisit, dayvote, weekvote, monthvote, allvote ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
+		String author = novel.getAuthor();
+		if (author.length() > 50) {
+			author = "佚名";
+			System.out.println("书： " + novel.getNovelName() + " 的书作者字段超过了50，所以修改为 《佚名》");
+		}
+
 		Object[] params = new Object[]{novel.getNovelName(), novel.getPinyin(), novel.getInitial(), StringUtils.trimToEmpty(novel.getKeywords()), 
 				0, novel.getAuthor(), novel.getTopCategory(), novel.getSubCategory(),
 				novel.getIntro(), novel.getFullFlag(), new Timestamp(System.currentTimeMillis()), 
