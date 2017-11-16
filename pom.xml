@@ -31,13 +31,9 @@
 			<properties>
 				<profiles.active>dev</profiles.active>
 			</properties>
-		</profile>
-		<profile>
-			<!-- 测试环境 -->
-			<id>test</id>
-			<properties>
-				<profiles.active>test</profiles.active>
-			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		<profile>
 			<!-- 生产环境 -->
@@ -45,6 +41,9 @@
 			<properties>
 				<profiles.active>prd</profiles.active>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 
@@ -52,12 +51,14 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
+				<!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
 				<excludes>
-					<exclude>local/*</exclude>
-					<exclude>prd/*</exclude>
 					<exclude>dev/*</exclude>
+					<exclude>prd/*</exclude>
 				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${profiles.active}</directory>
 			</resource>
 		</resources>
 		<plugins>
